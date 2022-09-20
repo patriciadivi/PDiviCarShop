@@ -27,7 +27,10 @@ abstract class MongodbModel<T> implements IModel<T> {
     return resultItem;
   }
 
-  async update(id: string, dataValues: Partial<T>): Promise<T | null> {    
+  async update(id: string, dataValues: Partial<T>): Promise<T | null> {  
+    if (!isValidObjectId(id)) {
+      throw new CustomerError(400, 'Id must have 24 hexadecimal characters');
+    } 
     const resultUpdated = await this.model.findByIdAndUpdate(id, dataValues, {
       new: true,
     });

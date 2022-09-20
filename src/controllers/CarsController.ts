@@ -13,7 +13,7 @@ class CarsController {
     return res.status(201).json(resultTeamsServiceAll);
   };
 
-  public async read(req: Request, res: Response<ICar[]>): Promise<void> {
+  public async read(_req: Request, res: Response<ICar[]>): Promise<void> {
     const list = await this.serviceCar.read();
     res.status(200).json(list);
   }

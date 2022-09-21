@@ -9,12 +9,14 @@ import ServicePostCars from '../../../services/ServicePostCars';
 import { carsMock, carsMockId, carsReadCompleted } from './../../mocks/carsMock';
 import { ICar } from '../../../interfaces';
 
-describe('Model Service', () => {
+describe('Service layer', () => {
   const mongodbModel = new Carsdb();
   const servicePostCars = new ServicePostCars(mongodbModel);
   before(async () => {
     sinon.stub(mongodbModel, 'create').resolves(carsMockId);
-    sinon.stub(mongodbModel, 'read').resolves(carsReadCompleted)
+    sinon.stub(mongodbModel, 'read')
+      .onCall(0).resolves(carsReadCompleted)
+      .onCall(1).resolves(carsReadCompleted)
     sinon.stub(mongodbModel, 'readOne').resolves(carsMockId);
     sinon.stub(mongodbModel, 'update').resolves(carsMockId);
     sinon.stub(mongodbModel, 'delete').resolves(carsMockId);
